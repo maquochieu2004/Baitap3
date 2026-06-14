@@ -1,32 +1,6 @@
 # Baitap3
-Môn phát triển ứng dụng mã nguồn
-SỬ DỤNG DJANGO ĐỂ TẠO WEB QUẢN LÝ TIỆM CẦM ĐỒ
-
-deadline : 23h59 ngày 09 tháng 5 năm 2026.
-
-Link gửi bài: Tại đây
-
-1. TỔ CHỨC CSDL CHO HỆ THỐNG QUẢN LÝ TIỆM CẦM ĐỒ: viết tay ra giấy, lấy điện thoại chụp lại, upload ảnh lên github (đã nói về các nghiệp vụ trên lớp, ghi bảng)
-
-2. SỬ DỤNG DOCKER TRÊN UBUNTU ĐỂ:
-
-- Mariadb : chứa csdl của hệ thống này
-- Phpmyadmin: để soi được csdl (chỉ để xem, ko cần tạo bảng từ đây, django sẽ làm hết)
-Django: build 1 docker container (dùng Dockerfile): trên nền python, sử dụng django, nhớ mount thư mục để dễ edit, edit dùng: sudo nano ten_file
-
-sau khi có 3 service này trong file docker-compose.yml :
-
-- run nó, cấu hình để Django nhận csdl mariadb (sửa file settings.py), cấu hình user login ban đầu, mô tả các bảng trong models.py, .... (đc phép sử dụng AI để làm) => KQ được trang admin, y/c đăng nhập, vào trang admin: cho phép thêm sửa xoá dữ liệu các bảng. các trường là khoá ngoại chỉ việc chọn text (mặc dù là csdl tại trường FK đó lưu ID của PK mà nó tham chiếu : sử dụng phpmyadmin để kiểm chứng)
-- chú ý kết hợp ssh để chạy lệnh tác động vào django và sudo nano để edit file.
-sử dụng template (file html, sử dụng cú pháp jinja2), lấy context từ 1 view home_page, để tạo trang liệt kê các con nợ đến hạn mà chưa trả tiền!
-- sử dụng cloudflare tunnel để public kết quả lên 1 sub-domain => chụp kết quả
-
-Hướng dẫn:
-
-- Tạo thư mục để chứa image tự buid cho django
-- Vào thư mục đó tạo file tên: Dockerfile (nội dung hỏi AI xem file này cần có nội dung gì, full comment cho từng dòng lệnh trong file này => mục tiêu kép: để hiểu và để hệ thống chạy được)
-- AI sẽ nói cần thêm file requirements.txt để cài các thư viện cho python (cài qua lệnh pip) => tạo file requirements.txt với nội dung tưng ứng, trong file này cũng comment được => comment xem thư viện nào dùng để làm gì
-- Sau mỗi lần sửa đỏi có thể phải chạy lệnh dạng : docker compose exec TÊN_SERVICE_DJANGO_CỦA_BẠN python manage.py migrate để tác động vào django (còn nhiều lệnh khác chứ ko luôn như này), để django thay đổi csdl hoặc thay đổi cấu hình.
+SỬ DỤNG DOCKER TRÊN UBUNTU ĐỂ TẠO docker chứa:
+Mariadb: use image: mariadb:latest để làm hệ quản trị csdl cho wordpress Phpmyadmin:sư dụng image: phpmyadmin:latest để đăng nhập vào mariadb rồi tạo csdl trống (chỉ để xem, ko cần tạo bảng từ đây, wordpress sẽ làm hết) WordPress: Use image: wordpress:latest, truyền tham số môi trường cho wordpress là các thông tin truy cập csdl mariadb, được tạo bởi Phpmyadmin Yêu cầu: sau khi có 3 dịch vụ này trong tệp docker-compose.yml : Cấu hình để hệ thống chạy Sử dụng đường hầm cloudflare để web công cộng này lên 1 tên miền phụ Tạo 1 bài viết trong wordpress giới thiệu về bản thân sinh viên: thông tin cá nhân, cơ sở thích, ... bài viết có thể chứa hình ảnh, âm thanh, video, ... Tạo 1 bài viết trong wordpress giới thiệu về chuyên ngành mà em yêu thích trong trường TNUT. bài viết phải chứa hình ảnh, video, ... Nhận xét việc sử dụng mã nguồn mở wordpress để tạo trang web (tốn công sức thế nào, dễ/khóa dùng ra sao, tài nguyên (ssh/ram) rẻ tiền của máy chủ ra sao,....)
 ## Bước 1: Tạo file docker-compose.yml
 Tạo tệp: nano docker-compose.yml
 
